@@ -47,9 +47,6 @@ public class Account {
         balance += amount;
     }
 
-    public void withdraw( double amount){
-        balance -= amount + 5.0;
-    }
     public String toString(){
         return "account: "
                 + number+
@@ -57,5 +54,13 @@ public class Account {
                 +holder+
                 ",balance: $"
                 +String.format("%.2f", balance);
+    }
+    public void withdraw(double amount) {
+        if (amount > balance) {
+            System.out.println("Insufficient funds. Withdrawal canceled.");
+        } else {
+            balance -= amount;
+            balance -= 5.0; // Deduct a fee of 5 reais
+        }
     }
 }
