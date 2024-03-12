@@ -1,47 +1,60 @@
+
+// Program.java
 package application;
 
 import entities.Account;
-import java.util.Locale;
+import entities.AccountNotFoundException;
+import entities.Bank;
+import entities.InsufficientFundsException;
+
 import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
-        Account account;
         Scanner sc = new Scanner(System.in);
-        Locale.setDefault(Locale.US);
+        Bank bank = new Bank();
 
-        System.out.println("Enter the account number: ");
-        int number = sc.nextInt();
-        System.out.println("Enter the account holder: ");
-        String holder = sc.nextLine(); // Use next() instead of nextLine()
-        sc.nextLine();
-        System.out.println("Is there an initial deposit? (Y/N)");
-        char response = sc.next().charAt(0);
+        // Adicionar contas
+        bank.addAccount(new Account(1, "Alice"));
+        bank.addAccount(new Account(2, "Bob"));
+        bank.addAccount(new Account(3, "Charlie"));
 
-        if (response == 'y' || response == 'Y') {
-            System.out.println("Enter initial deposit value: ");
-            double initialDeposit = sc.nextDouble();
-            account = new Account(initialDeposit, number, holder);
-        } else {
-            account = new Account(holder, number);
+        // Realizar operações
+        try {
+            bank.depositInAccount(1, 1000);
+            bank.withdrawFromAccount(1, 300);
+        } catch (AccountNotFoundException | InsufficientFundsException e) {
+            System.out.println(e.getMessage());
         }
 
-        System.out.println();
-        System.out.println("Account data: ");
-        System.out.println(account);
+        // Mostrar dados das contas
+        bank.getAccounts().forEach(System.out::println);
 
-        System.out.println();
-        System.out.println("Enter a deposit value:");
-        double depositValue = sc.nextDouble();
-        account.deposit(depositValue);
-        System.out.println("Updated account data:");
-        System.out.println(account);
+        sc.close
+      
+        // Mostrar dados das contas
+        bank.getAccounts().forEach(System.out::println);
 
-        System.out.println();
-        System.out.println("Enter a withdraw value:");
-        double withdrawValue = sc.nextDouble();
-        account.withdraw(withdrawValue);
-        System.out.println("Updated account data:");
-        System.out.println(account);
+        // Realizar operações com tratamento de exceções
+        try {
+            System.out.println("Digite o número da conta para depósito:");
+            int accountNumber = sc.nextInt();
+            System.out.println("Digite o valor do depósito:");
+            double depositValue = sc.nextDouble();
+            bank.depositInAccount(accountNumber, depositValue);
+
+            System.out.println("Digite o número da conta para saque:");
+            accountNumber = sc.nextInt();
+            System.out.println("Digite o valor do saque:");
+            double withdrawValue = sc.nextDouble();
+            bank.withdrawFromAccount(accountNumber, withdrawValue);
+        } catch (AccountNotFoundException | InsufficientFundsException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Mostrar dados atualizados das contas
+        bank.getAccounts().forEach(System.out::println);
+
+        sc.close();
     }
 }

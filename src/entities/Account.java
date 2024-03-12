@@ -1,66 +1,60 @@
+// Account.java
 package entities;
 
 public class Account {
     private int number;
-    private String holder;
     private double balance;
+    private String clientName;
 
-
-
-    public Account(String holder, int number) {
-        super();
+    public Account(int number, String clientName) {
         this.number = number;
-        this.holder = holder;
-    }
-
-    public Account(double initialDeposit,int number, String holder) {
-
-        deposit(initialDeposit);
-        this.number = number;
-        this.holder = holder;
-    }
-
-    public Account(int number, String holder, double initialDeposit) {
+        this.clientName = clientName;
+        this.balance = 0.0;
     }
 
     public int getNumber() {
         return number;
     }
 
-    public String getHolder() {
-        return holder;
+    public String getClientName() {
+        return clientName;
     }
 
-    public void setHolder(String holder) {
-        this.holder = holder;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
     public double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public void deposit(double amount){
-        balance += amount;
-    }
-
-    public String toString(){
-        return "account: "
-                + number+
-                ", holder: "
-                +holder+
-                ",balance: $"
-                +String.format("%.2f", balance);
-    }
-    public void withdraw(double amount) {
-        if (amount > balance) {
-            System.out.println("Insufficient funds. Withdrawal canceled.");
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Depósito realizado com sucesso!");
         } else {
-            balance -= amount;
-            balance -= 5.0; // Deduct a fee of 5 reais
+            System.out.println("Erro: O valor do depósito deve ser positivo.");
         }
     }
+
+    public void withdraw(double amount) throws InsufficientFundsException {
+        if (amount <= 0) {
+            System.out.println("Erro: O valor do saque deve ser positivo.");
+        } else if (amount + 5.0 > balance) { // Inclui a taxa de saque
+            throw new InsufficientFundsException("Saldo insuficiente para realizar o saque.");
+        } else {
+            balance -= amount + 5.0; // Taxa de saque
+            System.out.println("Saque realizado com sucesso!");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "number=" + number +
+                ", balance=" + balance +
+                ", clientName='" + clientName + '\'' +
+                '}';
+    }
 }
+
