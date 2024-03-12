@@ -1,5 +1,3 @@
-
-// Program.java
 package application;
 
 import entities.Account;
@@ -9,6 +7,7 @@ import entities.InsufficientFundsException;
 
 import java.util.Scanner;
 
+// Program.java
 public class Program {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -28,11 +27,7 @@ public class Program {
         }
 
         // Mostrar dados das contas
-        bank.getAccounts().forEach(System.out::println);
-
-        sc.close
-      
-        // Mostrar dados das contas
+        System.out.println("Dados das contas após operações:");
         bank.getAccounts().forEach(System.out::println);
 
         // Realizar operações com tratamento de exceções
@@ -53,8 +48,10 @@ public class Program {
         }
 
         // Mostrar dados atualizados das contas
+        System.out.println("Dados das contas após as operações:");
         bank.getAccounts().forEach(System.out::println);
 
+        // Fechar o scanner no final do método main
         sc.close();
     }
 }

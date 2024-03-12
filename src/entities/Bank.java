@@ -31,22 +31,8 @@ public class Bank {
         Account account = findAccountByNumber(number);
         account.withdraw(amount);
     }
-}
 
-// AccountNotFoundException.java
-package entities;
-
-public class AccountNotFoundException extends Exception {
-    public AccountNotFoundException(String message) {
-        super(message);
-    }
-}
-
-// InsufficientFundsException.java
-package entities;
-
-public class InsufficientFundsException extends Exception {
-    public InsufficientFundsException(String message) {
-        super(message);
+    public List<Account> getAccounts() {
+        return accounts;
     }
 }
