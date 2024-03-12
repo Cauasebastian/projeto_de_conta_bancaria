@@ -50,10 +50,10 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "number=" + number +
-                ", balance=" + balance +
-                ", clientName='" + clientName + '\'' +
+        return "Account{ " +
+                "number= " + number +
+                ", balance= " + balance +
+                ", clientName= '" + clientName + '\'' +
                 '}';
     }
 }
